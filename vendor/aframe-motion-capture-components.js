@@ -145,7 +145,7 @@
 
 	  getJSONData: function () {
 	    var data;
-	    var trackedControlsComponent = this.el.components['tracked-controls'];
+	    var trackedControlsComponent = this.el.components['tracked-controls-webxr'];
 	    var controller = trackedControlsComponent && trackedControlsComponent.controller;
 	    if (!this.recordedPoses) { return; }
 	    data = {
@@ -506,7 +506,7 @@
 	   */
 	  throttledTick: function () {
 	    var self = this;
-	    var trackedControllerEls = this.el.querySelectorAll('[tracked-controls]');
+	    var trackedControllerEls = this.el.querySelectorAll('[tracked-controls-webxr]');
 	    this.trackedControllerEls = {};
 	    trackedControllerEls.forEach(function (trackedControllerEl) {
 	      if (!trackedControllerEl.id) {
@@ -1302,13 +1302,13 @@
 	AFRAME.registerSystem('motion-capture-replayer', {
 	  init: function () {
 	    var sceneEl = this.sceneEl;
-	    var trackedControlsSystem = sceneEl.systems['tracked-controls'];
-	    var trackedControlsTick = AFRAME.components['tracked-controls'].Component.prototype.tick;
+	    var trackedControlsSystem = sceneEl.systems['tracked-controls-webxr'];
+	    var trackedControlsTick = AFRAME.components['tracked-controls-webxr'].Component.prototype.tick;
 	    this.gamepads = [];
 	    this.updateControllerListOriginal = trackedControlsSystem.updateControllerList.bind(trackedControlsSystem);
-	    sceneEl.systems['tracked-controls'].updateControllerList = this.updateControllerList.bind(this);
-	    AFRAME.components['tracked-controls'].Component.prototype.tick = this.trackedControlsTickWrapper;
-	    AFRAME.components['tracked-controls'].Component.prototype.trackedControlsTick = trackedControlsTick;
+	    sceneEl.systems['tracked-controls-webxr'].updateControllerList = this.updateControllerList.bind(this);
+	    AFRAME.components['tracked-controls-webxr'].Component.prototype.tick = this.trackedControlsTickWrapper;
+	    AFRAME.components['tracked-controls-webxr'].Component.prototype.trackedControlsTick = trackedControlsTick;
 	  },
 
 	  trackedControlsTickWrapper: function (time, delta) {
@@ -1319,7 +1319,7 @@
 	  updateControllerList: function () {
 	    var sceneEl = this.sceneEl;
 	    var i;
-	    var trackedControlsSystem = sceneEl.systems['tracked-controls'];
+	    var trackedControlsSystem = sceneEl.systems['tracked-controls-webxr'];
 	    this.updateControllerListOriginal();
 	    this.gamepads.forEach(function (gamepad) {
 	      if (trackedControlsSystem.controllers[gamepad.index]) { return; }
