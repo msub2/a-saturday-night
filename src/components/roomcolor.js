@@ -11,6 +11,6 @@ AFRAME.registerComponent('roomcolor', {
     if (oldData == this.data) return;
     var mesh = this.el.getObject3D('mesh');
     if (!mesh) return;
-    mesh.children[0].children[0].children[0].material.color.set(this.data);
+    mesh.children[0].material.color.set(this.data);
   }
 })

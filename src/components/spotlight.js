@@ -15,12 +15,11 @@ AFRAME.registerComponent('spotlight', {
       z: this.data.speed.z + Math.random() * 500
     };
     this.initialRotation = this.el.getAttribute('rotation');
-    var mesh = this.el.getObject3D('mesh').children[0].children[0];
+    var mesh = this.el.getObject3D('mesh');
 
     if (!mesh.children.length) return;
     var texture = new THREE.TextureLoader().load( document.getElementById('spotlight-img').getAttribute('src') );
     var material = new THREE.MeshBasicMaterial({
-        shading: THREE.FlatShading,
         color: this.data.color,
         transparent: true,
         alphaMap: texture,
@@ -35,7 +34,6 @@ AFRAME.registerComponent('spotlight', {
     if (this.star === null) {
       var starTexture = new THREE.TextureLoader().load( document.getElementById('star-img').getAttribute('src') );
       var starMaterial = new THREE.SpriteMaterial({
-        shading: THREE.FlatShading,
         transparent: true,
         map: starTexture,
         color: this.data.color,
